@@ -1,0 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbrechin <kbrechin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/24 15:35:43 by kbrechin          #+#    #+#             */
+/*   Updated: 2022/02/25 11:25:44 by kbrechin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+#include "libft.h"
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t			i;
+	unsigned char	*b1;
+	unsigned char	*b2;
+
+	b1 = (unsigned char *)s1;
+	b2 = (unsigned char *)s2;
+	i = 0;
+	while (n-- && (b1[i] || b2[i]))
+	{
+		if (b1[i] != b2[i])
+			return (b1[i] - b2[i]);
+		i++;
+	}
+	return (0);
+}
