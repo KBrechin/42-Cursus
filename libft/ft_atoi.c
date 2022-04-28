@@ -6,7 +6,7 @@
 /*   By: kbrechin <kbrechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 11:19:31 by kbrechin          #+#    #+#             */
-/*   Updated: 2022/03/01 12:14:10 by kbrechin         ###   ########.fr       */
+/*   Updated: 2022/04/28 14:19:26 by kbrechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -15,16 +15,14 @@ int	ft_atoi(const char *str)
 {
 	long	sign;
 	long	res;
-	int	i;
+	int		i;
 
 	i = 0;
 	res = 0;
 	sign = 1;
-	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' || 
-			str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
-	{
+	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t' || \
+	str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
 		i++;
-	}
 	if (str[i] == '-')
 		sign = -1;
 	if ((str[i] == '-') || (str[i] == '+'))
@@ -38,5 +36,5 @@ int	ft_atoi(const char *str)
 			return (0);
 		i++;
 	}
-	return(sign*res);
+	return (sign * res);
 }	

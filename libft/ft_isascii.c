@@ -6,15 +6,15 @@
 /*   By: kbrechin <kbrechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 14:12:36 by kbrechin          #+#    #+#             */
-/*   Updated: 2022/02/24 14:18:06 by kbrechin         ###   ########.fr       */
+/*   Updated: 2022/04/20 17:09:20 by kbrechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-int ft_isascii(int c)
+int	ft_isascii(int c)
 {
 	if (c >= 0 && c <= 127)
 		return (1);
-	else 
+	else
 		return (0);
 }

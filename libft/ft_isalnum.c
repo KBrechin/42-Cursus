@@ -6,12 +6,12 @@
 /*   By: kbrechin <kbrechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 12:00:45 by kbrechin          #+#    #+#             */
-/*   Updated: 2022/02/24 14:10:05 by kbrechin         ###   ########.fr       */
+/*   Updated: 2022/04/20 17:10:46 by kbrechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-int ft_isalnum(int c)
+int	ft_isalnum(int c)
 {
 	return (ft_isdigit(c) || ft_isalpha(c));
 }

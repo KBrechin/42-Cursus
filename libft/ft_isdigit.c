@@ -6,16 +6,16 @@
 /*   By: kbrechin <kbrechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 11:57:42 by kbrechin          #+#    #+#             */
-/*   Updated: 2022/02/24 11:59:56 by kbrechin         ###   ########.fr       */
+/*   Updated: 2022/04/20 17:08:49 by kbrechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_isdigit(int c)
+int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
-		return(1);
+		return (1);
 	else
-		return(0);
+		return (0);
 }
