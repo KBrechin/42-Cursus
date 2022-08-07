@@ -6,7 +6,7 @@
 /*   By: kbrechin <kbrechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 17:40:08 by kbrechin          #+#    #+#             */
-/*   Updated: 2022/08/07 19:34:11 by kbrechin         ###   ########.fr       */
+/*   Updated: 2022/08/07 19:55:16 by kbrechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-
+//EASY AS
 /*returns the length of a string*/
 int	ft_strlen(char *str)
 {
