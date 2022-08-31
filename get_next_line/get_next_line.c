@@ -49,8 +49,9 @@ char	*read_line(int fd, char *store, char *buffer)
 	return (NULL);
 }
 
-/* Clean will activate after the read_line function hits a \n in the 
-   fd and will take a substring starting after the \n*/
+/* Clean will return everything after the \n in line and 
+   will place a \0 after \n so that it may be returned in 
+   get_next_line (gnl)*/
 char	*Clean(char *line)
 {
 	size_t		i;
