@@ -2,7 +2,7 @@ NAME = so_long.out
 
 INC = includes
 
-SRC = main.c
+SRC = src/*.c
 
 LIBX = minilibx
 

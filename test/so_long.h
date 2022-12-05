@@ -5,6 +5,9 @@
 # include <stdio.h>
 #include <unistd.h>
 # include <stdlib.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/uio.h>
 # include "../minilibx/mlx.h"
 
 # define IMG_SIZE 64
@@ -37,6 +40,9 @@ typedef struct s_player{
 
 typedef struct s_tile{
 	void	*ground;
+	void	*coin;
+	void	*wall;
+	void	*exit;
 }	t_tile;
 
 
@@ -45,7 +51,14 @@ typedef struct s_game{
 	void		*window;
 	int			bits_per_pixel;
 	int			line_length;
+	int			last_x;
+	int			last_y;
 	void		*pointer;
+	char		**map;
+	int			map_h;
+	int			map_w;
+	int			coins;
+	int			movies;
 	t_vector 	win_size;
 	t_keycode 	keys;
 	t_player	player;
@@ -58,5 +71,10 @@ int 	destroy_program(t_game *game);
 void	open_images(t_game *game);
 int 	draw(t_game game);
 void	game_init(t_game *game);
+char	*get_next_line(int fd);
+char	*ft_substr(const char *str, size_t start, size_t len);
+size_t	ft_strlen(const char *str);
+char	*ft_strjoin(char *start, char *end);
+
 
 #endif
