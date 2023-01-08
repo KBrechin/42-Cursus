@@ -6,7 +6,7 @@
 /*   By: kbrechin <kbrechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 13:09:52 by kbrechin          #+#    #+#             */
-/*   Updated: 2023/01/05 13:37:14 by kbrechin         ###   ########.fr       */
+/*   Updated: 2023/01/08 16:46:23 by kbrechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*read_line(int fd, char *store, char *buffer)
 		if (read_return == 0)
 			return (store);
 		buffer[read_return] = '\0';
-		if (!store) 
+		if (!store)
 			store = malloc(1 + 1);
 		store = ft_strjoin(store, buffer);
 		if (store[detect_line(store)] == '\n')

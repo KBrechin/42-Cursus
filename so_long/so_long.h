@@ -6,7 +6,7 @@
 /*   By: kbrechin <kbrechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 14:09:54 by kbrechin          #+#    #+#             */
-/*   Updated: 2023/01/08 16:42:16 by kbrechin         ###   ########.fr       */
+/*   Updated: 2023/01/08 17:07:05 by kbrechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	update_map(t_game *game);
 void	map_importer(t_game *game, char *path);
 void	draw_map(t_game *game, int x, int y);
 void	set_map(t_game *game);
+int	check_map(t_game *game);
 
 // main.c
 int		inputs(int key, t_game *game);

@@ -6,7 +6,7 @@
 /*   By: kbrechin <kbrechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:32 by kbrechin          #+#    #+#             */
-/*   Updated: 2023/01/08 16:42:59 by kbrechin         ###   ########.fr       */
+/*   Updated: 2023/01/08 19:03:57 by kbrechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,9 @@ int	main(int argc, char **argv)
 	game_start(game, argv[1]);
 	open_imgs(game);
 	set_map(game);
-	if (!flood_fill(game))
+	if (!flood_fill(game) || !check_map(game))
 	{
+		ft_printf("Error\n");
 		destroy_program(game);
 		return (0);
 	}

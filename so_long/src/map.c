@@ -6,7 +6,7 @@
 /*   By: kbrechin <kbrechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 14:35:52 by kbrechin          #+#    #+#             */
-/*   Updated: 2023/01/08 16:36:23 by kbrechin         ###   ########.fr       */
+/*   Updated: 2023/01/08 18:55:43 by kbrechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,11 @@ void	map_importer(t_game *game, char *path)
 void	draw_map(t_game *game, int x, int y)
 {
 	if (game->map[y][x] == '0')
-		mlx_put_image_to_window(game->mlx, game->window, game->tile.ground, x * 64, y * 64);
+		mlx_put_image_to_window(game->mlx, game->window,
+			game->tile.ground, x * 64, y * 64);
 	else if (game->map[y][x] == '1')
-		mlx_put_image_to_window(game->mlx, game->window, game->tile.wall, x * 64, y * 64);
+		mlx_put_image_to_window(game->mlx, game->window,
+			game->tile.wall, x * 64, y * 64);
 	else if (game->map[y][x] == 'P')
 	{
 		game->player.position.x = x;
@@ -76,10 +78,36 @@ void	draw_map(t_game *game, int x, int y)
 		game->coins++;
 	}
 	else if (game->map[y][x] == 'E')
-	{
 		mlx_put_image_to_window(game->mlx, game->window,
 			game->tile.exit, x * 64, y * 64);
+}
+
+int	check_map(t_game *game)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (x < game->map_w)
+	{
+		if (game->map[0][x] != '1' || game->map[game->map_h - 1][x] != '1')
+		{
+			ft_printf("1 needed at x = %d, y = %d\n", x, y);
+			return (0);
+		}
+		x++;
 	}
+	while (y < game->map_h)
+	{
+		if (game->map[y][0] != '1' || game->map[y][game->map_w - 1] != '1')
+		{
+			ft_printf("1 needed at x = %d, y = %d\n", x, y);
+			return (0);
+		}
+		y++;
+	}
+	return (1);
 }
 
 void	set_map(t_game *game)

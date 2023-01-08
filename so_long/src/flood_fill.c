@@ -6,7 +6,7 @@
 /*   By: kbrechin <kbrechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:32 by kbrechin          #+#    #+#             */
-/*   Updated: 2023/01/08 16:36:05 by kbrechin         ###   ########.fr       */
+/*   Updated: 2023/01/08 19:05:50 by kbrechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,22 @@ int	scan_directions(int x, int y, char **map, t_game *game)
 	int	moved;
 
 	moved = 0;
-	if (is_walkable(x - 1, y, map)) /*left*/
+	if (is_walkable(x - 1, y, map))
 	{
 		mark(x - 1, y, map, game);
 		moved++;
 	}
-	if (is_walkable(x + 1, y, map)) /*right*/
+	if (is_walkable(x + 1, y, map))
 	{
 		mark(x + 1, y, map, game);
 		moved++;
 	}
-	if (is_walkable(x, y - 1, map)) /*up*/
+	if (is_walkable(x, y - 1, map))
 	{
 		mark(x, y - 1, map, game);
 		moved++;
 	}
-	if (is_walkable(x, y + 1, map)) /*down*/
+	if (is_walkable(x, y + 1, map))
 	{
 		mark(x, y + 1, map, game);
 		moved++;
