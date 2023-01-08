@@ -1,8 +1,8 @@
-NAME = so_long.out
+NAME = so_long
 
 INC = includes
 
-SRC = src/*.c
+SRC = src/*.c src/ft_gnl/*.c src/ft_printf/*.c
 
 LIBX = minilibx
 
