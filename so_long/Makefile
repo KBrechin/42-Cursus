@@ -10,7 +10,7 @@ INCS = -I$(LIBX) -I$(INC)
 
 LIBS = minilibx/libmlx.a -L$(LIBX) -lmlx
 
-FLAGS = $(INCS) $(LIBS) -framework OpenGL -framework Appkit
+FLAGS = $(INCS) $(LIBS) -framework OpenGL -framework Appkit -Werror -Wall -Wextra
 
 
 all:

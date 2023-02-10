@@ -6,7 +6,7 @@
 /*   By: kbrechin <kbrechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:32 by kbrechin          #+#    #+#             */
-/*   Updated: 2023/01/08 19:05:50 by kbrechin         ###   ########.fr       */
+/*   Updated: 2023/02/10 18:57:42 by kbrechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	**copy_map(t_game *game)
 	int		x;
 	char	**map;
 
-	map = malloc(sizeof(char *) * game->map_h);
+	map = malloc(sizeof(char *) * (game->map_h * game->map_w));
 	y = -1;
 	while (++y < game->map_h)
 	{
@@ -35,16 +35,21 @@ char	**copy_map(t_game *game)
 void	mark(int x, int y, char **map, t_game *game)
 {
 	if (map[y][x] == '0')
-		map[y][x] = 's';
+		map[y][x] = 'S';
 	else if (map[y][x] == 'C')
 	{
-		map[y][x] = 's';
+		map[y][x] = 'S';
 		game->current_coins++;
 	}
 	else if (map[y][x] == 'E')
 	{
-		map[y][x] = 's';
+		map[y][x] = 'S';
 		game->current_exits++;
+	}
+	else if (map[y][x] == 'P')
+	{
+		map[y][x] = 'X';
+		game->p++;
 	}
 }
 
@@ -56,54 +61,44 @@ int	is_walkable(int x, int y, char **map)
 }
 
 //checks if map in each direction is walkable and then marks that point 
-int	scan_directions(int x, int y, char **map, t_game *game)
+void	scan_directions(int x, int y, char **map, t_game *game)
 {
-	int	moved;
-
-	moved = 0;
-	if (is_walkable(x - 1, y, map))
-	{
-		mark(x - 1, y, map, game);
-		moved++;
-	}
-	if (is_walkable(x + 1, y, map))
-	{
-		mark(x + 1, y, map, game);
-		moved++;
-	}
-	if (is_walkable(x, y - 1, map))
-	{
-		mark(x, y - 1, map, game);
-		moved++;
-	}
 	if (is_walkable(x, y + 1, map))
-	{
 		mark(x, y + 1, map, game);
-		moved++;
+	if (is_walkable(x, y - 1, map))
+		mark(x, y - 1, map, game);
+	if (is_walkable(x - 1, y, map))
+		mark(x - 1, y, map, game);
+	if (is_walkable(x + 1, y, map))
+		mark(x + 1, y, map, game);
+	if (map[y][x] == 'S' || map[y][x] == 's' || map[y][x] == 'E')
+		map[y][x] = 'X';
+	if (map[y][x] == 'P')
+	{
+		map[y][x] = 'p';
+		game->p++;
 	}
-	return (moved);
 }
 
-void	scanner(t_game *game, char **map)
+int	scanner(t_game *game, char **map)
 {
 	int	moves;
 	int	x;
 	int	y;
 
-	moves = 1;
-	game->current_coins = 0;
-	game->current_exits = 0;
-	while (moves > 0)
+	moves = 0;
+	y = 0;
+	while (++y < game->map_h - 1)
 	{
-		y = -1;
-		while (++y < game->map_h)
+		x = 0;
+		while (++x < game->map_w - 1)
 		{
-			x = -1;
-			while (++x < game->map_w)
+			if (map[y][x] == 'P' || map[y][x] == 'S')
 			{
-				if (map[y][x] == 'P' || map[y][x] == 's')
-					moves = scan_directions(x, y, map, game);
+				scan_directions(x, y, map, game);
+				moves++;
 			}
 		}
 	}
+	return (moves);
 }

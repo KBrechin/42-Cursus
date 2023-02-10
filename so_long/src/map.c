@@ -6,7 +6,7 @@
 /*   By: kbrechin <kbrechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 14:35:52 by kbrechin          #+#    #+#             */
-/*   Updated: 2023/01/08 18:55:43 by kbrechin         ###   ########.fr       */
+/*   Updated: 2023/02/10 18:51:04 by kbrechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,25 @@ void	update_map(t_game *game)
 	int	x;
 	int	y;
 
-	x = game->player.position.x;
-	y = game->player.position.y;
+	x = game->player.pos.x;
+	y = game->player.pos.y;
 	if (game->map[y][x] == 'C')
+	{
+		game->map[y][x] = '0';
 		game->coins--;
+	}
 	else if (game->map[y][x] == 'E' && game->coins == 0)
-		exit(1);
+		destroy_program(game);
 	if (game->map[game->last_y][game->last_x] == 'E')
-		mlx_put_image_to_window(game->mlx, game->window,
+		mlx_put_image_to_window(game->mlx, game->win,
 			game->tile.exit, game->last_x * 64, game->last_y * 64);
 	else
-		mlx_put_image_to_window(game->mlx, game->window,
+		mlx_put_image_to_window(game->mlx, game->win,
 			game->tile.ground, game->last_x * 64, game->last_y * 64);
-	mlx_put_image_to_window(game->mlx, game->window, game->player.p_img,
-		game->player.position.x * 64, game->player.position.y * 64);
-	game->last_x = game->player.position.x;
-	game->last_y = game->player.position.y;
+	mlx_put_image_to_window(game->mlx, game->win, game->player.p_img,
+		game->player.pos.x * 64, game->player.pos.y * 64);
+	game->last_x = game->player.pos.x;
+	game->last_y = game->player.pos.y;
 }
 
 void	map_importer(t_game *game, char *path)
@@ -42,11 +45,11 @@ void	map_importer(t_game *game, char *path)
 
 	i = 0;
 	fd = open(path, O_RDONLY);
-	game->map = malloc(sizeof(char *) * 100);
+	game->map = malloc(sizeof(char *) * 1000);
 	while (1)
 	{
 		game->map[i] = get_next_line(fd);
-		if (game->map[i] == NULL)
+		if (game->map[i] == NULL || game->map[i][0] == '\n')
 			break ;
 		i++;
 	}
@@ -54,32 +57,33 @@ void	map_importer(t_game *game, char *path)
 	game->map_w = ft_strlen(game->map[0]) - 1;
 }
 
-void	draw_map(t_game *game, int x, int y)
+void	draw_map(t_game *g, int x, int y)
 {
-	if (game->map[y][x] == '0')
-		mlx_put_image_to_window(game->mlx, game->window,
-			game->tile.ground, x * 64, y * 64);
-	else if (game->map[y][x] == '1')
-		mlx_put_image_to_window(game->mlx, game->window,
-			game->tile.wall, x * 64, y * 64);
-	else if (game->map[y][x] == 'P')
+	if (g->map[y][x] == '0')
+		mlx_put_image_to_window(g->mlx, g->win,
+			g->tile.ground, x * 64, y * 64);
+	else if (g->map[y][x] == '1')
+		mlx_put_image_to_window(g->mlx, g->win,
+			g->tile.wall, x * 64, y * 64);
+	else if (g->map[y][x] == 'P')
 	{
-		game->player.position.x = x;
-		game->player.position.y = y;
-		game->last_x = game->player.position.x;
-		game->last_y = game->player.position.y;
-		mlx_put_image_to_window(game->mlx, game->window, game->player.p_img,
-			game->player.position.x * 64, game->player.position.y * 64);
+		g->player.pos.x = x;
+		g->player.pos.y = y;
+		g->last_x = g->player.pos.x;
+		g->last_y = g->player.pos.y;
+		mlx_put_image_to_window(g->mlx, g->win, g->player.p_img,
+			g->player.pos.x * 64, g->player.pos.y * 64);
 	}
-	else if (game->map[y][x] == 'C')
+	else if (g->map[y][x] == 'C')
 	{
-		mlx_put_image_to_window(game->mlx, game->window,
-			game->tile.coin, x * 64, y * 64);
-		game->coins++;
+		mlx_put_image_to_window(g->mlx, g->win, g->tile.coin, x * 64, y * 64);
+		g->coins++;
 	}
-	else if (game->map[y][x] == 'E')
-		mlx_put_image_to_window(game->mlx, game->window,
-			game->tile.exit, x * 64, y * 64);
+	else if (g->map[y][x] == 'E')
+		mlx_put_image_to_window(g->mlx, g->win,
+			g->tile.exit, x * 64, y * 64);
+	else
+		destroy_error(g);
 }
 
 int	check_map(t_game *game)
@@ -98,7 +102,7 @@ int	check_map(t_game *game)
 		}
 		x++;
 	}
-	while (y < game->map_h)
+	while (y < game->map_h - 1)
 	{
 		if (game->map[y][0] != '1' || game->map[y][game->map_w - 1] != '1')
 		{

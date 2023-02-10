@@ -6,7 +6,7 @@
 /*   By: kbrechin <kbrechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:18:32 by kbrechin          #+#    #+#             */
-/*   Updated: 2023/01/08 16:40:43 by kbrechin         ###   ########.fr       */
+/*   Updated: 2023/02/10 18:51:57 by kbrechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,19 @@
 
 int	destroy_program(t_game *game)
 {
-	mlx_destroy_window(game->mlx, game->window);
+	mlx_destroy_window(game->mlx, game->win);
 	free(game->map);
 	free(game);
-	exit(0);
+	exit(1);
+}
+
+int	destroy_error(t_game *game)
+{
+	ft_printf("Error\nInvalid Map Character\n");
+	mlx_destroy_window(game->mlx, game->win);
+	free(game->map);
+	free(game);
+	exit(1);
 }
 
 void	free_map(char **map, t_game *game)
@@ -29,11 +38,6 @@ void	free_map(char **map, t_game *game)
 		free(map[y]);
 }
 
-void	put_char(char c)
-{
-	write(1, &c, 1);
-}
-
 void	put_num(int num)
 {
 	if (num > 9)
@@ -42,29 +46,33 @@ void	put_num(int num)
 		put_num(num % 10);
 	}
 	else
-		put_char(num + '0');
+		write(1, (&num + '0'), 1);
 }
 
 void	player_pos(t_game *game, int direction)
 {
 	if (direction == 0)
 	{
-		game->player.position.y -= 1;
-		ft_printf("moves = %d\n", game->movies++);
+		game->player.pos.y -= 1;
+		ft_printf("moves = %d\ncoings = %d/%d\n", game->movies++,
+			game->current_coins, game->coins);
 	}
 	if (direction == 1)
 	{
-		game->player.position.y += 1;
-		ft_printf("moves = %d\n", game->movies++);
+		game->player.pos.y += 1;
+		ft_printf("moves = %d\ncoings = %d/%d\n", game->movies++,
+			game->current_coins, game->coins);
 	}
 	if (direction == 2)
 	{
-		game->player.position.x += 1;
-		ft_printf("moves = %d\n", game->movies++);
+		game->player.pos.x += 1;
+		ft_printf("moves = %d\ncoings = %d/%d\n", game->movies++,
+			game->current_coins, game->coins);
 	}
 	if (direction == 3)
 	{
-		game->player.position.x -= 1;
-		ft_printf("moves = %d\n", game->movies++);
+		game->player.pos.x -= 1;
+		ft_printf("moves = %d\ncoings = %d/%d\n", game->movies++,
+			game->current_coins, game->coins);
 	}
 }

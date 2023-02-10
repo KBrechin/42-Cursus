@@ -6,14 +6,13 @@
 /*   By: kbrechin <kbrechin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 14:09:54 by kbrechin          #+#    #+#             */
-/*   Updated: 2023/01/08 17:07:05 by kbrechin         ###   ########.fr       */
+/*   Updated: 2023/02/10 18:57:56 by kbrechin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-//# include "libft/libft.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -39,7 +38,7 @@ typedef enum s_keycode{
 
 typedef struct s_player{
 	void		*p_img;
-	t_vector	position;
+	t_vector	pos;
 }t_player;
 
 typedef struct s_tile{
@@ -50,9 +49,10 @@ typedef struct s_tile{
 }	t_tile;
 
 
+
 typedef struct s_game{
 	void		*mlx;
-	void		*window;
+	void		*win;
 	int			bits_per_pixel;
 	int			line_length;
 	int			last_x;
@@ -64,6 +64,7 @@ typedef struct s_game{
 	int			movies;
 	int			current_coins;
 	int			current_exits;
+	int			p;
 	t_vector	win_size;
 	t_keycode	keys;
 	t_player	player;
@@ -79,7 +80,7 @@ void	update_map(t_game *game);
 void	map_importer(t_game *game, char *path);
 void	draw_map(t_game *game, int x, int y);
 void	set_map(t_game *game);
-int	check_map(t_game *game);
+int		check_map(t_game *game);
 
 // main.c
 int		inputs(int key, t_game *game);
@@ -94,15 +95,17 @@ char	*ft_strjoin(char *start, char *end);
 char	**copy_map(t_game *game);
 void	mark(int x, int y, char **map, t_game *game);
 int		is_walkable(int x, int y, char **map);
-int		scan_directions(int x, int y, char **map, t_game *game);
-void	scanner(t_game *game, char **map);
+void	scan_directions(int x, int y, char **map, t_game *game);
+int		scanner(t_game *game, char **map);
 int		flood_fill(t_game *game);
+int		step(t_game *game, char **map);
 
 //utils.c
 int		destroy_program(t_game *game);
 void	free_map(char **map, t_game *game);
 void	put_num(int num);
 void	player_pos(t_game *game, int direction);
+int		destroy_error(t_game *game);
 
 // mlx_string_put(game->mlx, game->window, 50, 50, 0x00FFFFFF, "hello world");
 
